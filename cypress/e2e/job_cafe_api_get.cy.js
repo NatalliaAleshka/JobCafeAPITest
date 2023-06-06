@@ -1,6 +1,5 @@
 /// <reference types = "Cypress"/>
 
-
 describe('Get Jobs Test', () => {
 
   it('Get all jobs', () => {
@@ -21,11 +20,11 @@ describe('Get Jobs Test', () => {
     })
   })
 
-  it('Job listing has all details', () => {
+  it('Job listing has all details id', () => {
     cy.request('/').then((Response) => {
       console.log(Response.body.content),
-        expect(Response.body.content[0]).have.property("id")
-      expect(Response.body.content[0].id).not.null
+        expect(Response.body.content[7]).have.property("id")
+      expect(Response.body.content[7].id).not.null
       // expect(Response.body.content[0].id).equal("63b44b6b74f47208c44470d1")
     })
   })
@@ -46,7 +45,7 @@ describe('Get Jobs Test', () => {
     })
   })
 
-  it('Search by location', () => {
+  it('Search by city location', () => {
     cy.request('/?location=Toronto').then((Response) => {
       let resultsList = Response.body.content
       console.log(resultsList)
@@ -55,11 +54,96 @@ describe('Get Jobs Test', () => {
       for (let i = 0; i < resultsList.lenghth; i++) {
         expect(resultsList[i].location).equal("Toronto, Ontario, Canada")
 
-
       }
-
 
     })
   })
 
+  it('Search by country location_Canada', () => {
+    cy.request('/?location=Canada').then((Response) => {
+      let resultsList = Response.body.content
+      console.log(resultsList)
+      expect(Response.status).equal(200)
+
+      for (let i = 0; i < resultsList.lenghth; i++) {
+        expect(resultsList[i].location).equal("Canada")
+
+      }
+
+    })
+  })
+
+  it('Search by country location_USA', () => {
+    cy.request('/?location=USA').then((Response) => {
+      let resultsList = Response.body.content
+      console.log(resultsList)
+      expect(Response.status).equal(200)
+
+      for (let i = 0; i < resultsList.lenghth; i++) {
+        expect(resultsList[i].location).equal("USA")
+
+      }
+
+    })
+  })
+
+  it('Search by country location_Israel', () => {
+    cy.request('/?location=Israel').then((Response) => {
+      let resultsList = Response.body.content
+      console.log(resultsList)
+      expect(Response.status).equal(200)
+
+      for (let i = 0; i < resultsList.lenghth; i++) {
+        expect(resultsList[i].location).equal("Israel")
+
+      }
+
+    })
+  })
+
+  it('Search by provance location', () => {
+    cy.request('/?location=British Columbia').then((Response) => {
+      let resultsList = Response.body.content
+      console.log(resultsList)
+      expect(Response.status).equal(200)
+
+      for (let i = 0; i < resultsList.lenghth; i++) {
+        expect(resultsList[i].location).equal("British Columbia")
+
+      }
+
+    })
+  })
+
+  it('Search by description', () => {
+    cy.request('/?description=salary').then((Response) => {
+      let resultsList = Response.body.content
+      console.log(resultsList)
+      expect(Response.status).equal(200)
+
+      for (let i = 0; i < resultsList.lenghth; i++) {
+        expect(resultsList[i].description).equal("salary")
+
+      }
+
+    })
+  })
+
+  it('Search by job position', () => {
+    cy.request('/?position= Branch Manager').then((Response) => {
+      let resultsList = Response.body.content
+      console.log(resultsList)
+      expect(Response.status).equal(200)
+
+      for (let i = 0; i < resultsList.lenghth; i++) {
+        expect(resultsList[i].position).equal("Branch Manager")
+
+      }
+
+    })
+  })
+
+
+
 })
+

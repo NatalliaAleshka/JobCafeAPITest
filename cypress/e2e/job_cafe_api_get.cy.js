@@ -143,7 +143,45 @@ describe('Get Jobs Test', () => {
     })
   })
 
+  it('Non-existent location', () => {
+    cy.request('/?location= NonExistentLocation').then((Response) => {
+      let resultsList = Response.body.content
+      console.log(resultsList)
+      expect(Response.status).equal(200)
 
+      for (let i = 0; i < resultsList.length; i++) {
+        expect(Response.body.content).to.be.an('array').that.is.empty;
+
+      }
+
+    })
+  })
+
+  it('Invalid job position', () => {
+    cy.request('/?location= InvalidPosition').then((Response) => {
+      let resultsList = Response.body.content
+      console.log(resultsList)
+      expect(Response.status).equal(200)
+
+      for (let i = 0; i < resultsList.length; i++) {
+        expect(Response.body.content).to.be.an('array').that.is.empty;
+
+      }
+
+    })
+  })
+
+  it('Invalid date', () => {
+    cy.request('/?location= InvalidDate').then((Response) => {
+      let resultsList = Response.body.content
+      console.log(resultsList)
+      expect(Response.status).to.not.equal(200);
+
+
+    })
+  })
+
+ 
 
 })
 
